@@ -21,7 +21,7 @@ def create(db: sqlite3.Connection, item: models.ItemCreate) -> dict:
         "INSERT INTO dane (title, category, description) VALUES (?, ?, ?)",
         (data["title"], data["category"], data["description"]),
     )
-    db.commit()  # wazne, zeby zapisac zmiane
+    db.commit()  
     return get_by_id(db, row.lastrowid)
 
 
@@ -29,24 +29,18 @@ def delete(db: sqlite3.Connection, item_id: int) -> bool:
     cursor = db.execute("DELETE FROM dane WHERE id = ?", (item_id,))
     db.commit()
     is_deleted = cursor.rowcount
-    # return True if is_deleted == 1 else False ---> też dobrze
     return is_deleted == 1
 
 
 def update(
     db: sqlite3.Connection, item_id: int, item: models.ItemUpdate
 ) -> dict | None:
-    # tylko pola które faktycznie przyszły w request body (reszta to None)
     dane = item.model_dump(exclude_none=True)
-
-    # "title = ?, category = ?" — dynamicznie, zależnie od tego co przyszło
     fields = ", ".join(f"{key} = ?" for key in dane)
-
-    # wartości dla SET + item_id dla WHERE id = ? (musi być na końcu)
     values = list(dane.values()) + [item_id]
 
     db.execute(
-        f"UPDATE dane SET {fields} WHERE id = ?",  # f-string bezpieczny — klucze pochodzą z modelu Pydantic, nie od użytkownika
+        f"UPDATE dane SET {fields} WHERE id = ?",  
         values,
     )
     db.commit()
