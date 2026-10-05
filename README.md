@@ -1,6 +1,3 @@
-Aplikacja pozwala dodawać, przeglądać, edytować i usuwać pozycje z biblioteki. Każda pozycja ma tytuł, kategorię i opis.
-Dane są przechowywane w SQLite, a walidację wejścia i wyjścia zapewnia Pydantic.
-Kod jest podzielony na cztery warstwy, tak aby każda odpowiadała za jedną rzecz: trasy (routes) obsługują tylko HTTP, serwisy (services) zawierają obsługę błędów 404, repozytoria (repositories) wykonują zapytania SQL, a sql_connection.py zarządza połączeniem z bazą.
-Połączenie jest tworzone osobno dla każdego requestu i wstrzykiwane przez Depends().
-Zapytania SQL używają parametrów (?),
-dzięki czemu kod jest odporny na SQL injection
+Aplikacja pozwala dodawac, przegladac, edytowac i usuwac pozycje z biblioteki. Kazda pozycja ma tytul, kategorie i opis. Dane sa przechowywane w SQLite, a walidacje wejscia i wyjscia zapewnia Pydantic.
+ 
+Kod jest podzielony na cztery warstwy, tak aby kazda odpowiadala za jedna rzecz: routes obsluguja tylko HTTP, services zawieraja obsluge bledow 404, repositories wykonuja zapytania SQL, a sql_connection.py zarzadza polaczeniem z baza. Polaczenie jest tworzone osobno dla kazdego requestu i wstrzykiwane przez Depends(). Zapytania SQL uzywaja parametrow (?), dzieki czemu kod jest odporny na SQL injection.
